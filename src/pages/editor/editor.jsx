@@ -1,17 +1,19 @@
-import EditorPreview from "../../components/layout/editor/editorPreview/editorPreview";
 import LinkView from "../../components/layout/editor/linkView/linkView";
+import PhonePreview from "../../components/layout/editor/phonePreview/phonePreview";
 import ProfileView from "../../components/layout/editor/profileView/profileView";
-import { useEditorContext } from "../../contexts/editorContext";
+import { useEditorViewStore } from "../../store/store";
+
 
 const Editor = () => {
-  const { editorView } = useEditorContext();
+  const view = useEditorViewStore(state => state.view)
+  
   return (
     <main className="">
-      <section className="py-20 bg-white flex">
-        <EditorPreview />
-        <div className="py-10 px-6 bg-white">
+      <section className="flex gap-4">
+        <PhonePreview />
+        <div className="py-10 px-6 bg-white w-2/3">
           {
-            editorView === 'links' ? <LinkView /> : <ProfileView />
+            view === 'links' ? <LinkView /> : <ProfileView />
           }
         </div>
       </section>

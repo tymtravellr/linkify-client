@@ -1,10 +1,11 @@
-import { Eye } from "lucide-react"
-import { Link } from "react-router-dom"
-import { useEditorContext } from "../../../contexts/editorContext"
-import Button from "../../ui/button/button"
+import { Eye } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useEditorViewStore } from "../../../store/store";
+import Button from "../../ui/button/button";
 
 const Header = () => {
-    const { setLinkView, setProfileView } = useEditorContext();
+    const { setLinksView, setProfileView } = useEditorViewStore(state => state);
+
     return (
         <header className="py-3 bg-white rounded-lg">
             <div className="container">
@@ -15,10 +16,14 @@ const Header = () => {
                         </p>
                     </Link>
                     <div>
-                        <button>
+                        <button
+                            onClick={() => setLinksView()}
+                        >
                             Links
                         </button>
-                        <button>
+                        <button
+                            onClick={() => setProfileView()}
+                        >
                             Profile Details
                         </button>
                     </div>
