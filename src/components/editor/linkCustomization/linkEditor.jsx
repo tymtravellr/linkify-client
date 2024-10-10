@@ -1,6 +1,7 @@
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { v4 } from 'uuid';
 import { useDraftStore } from '../../../store/draftStore';
+import { variantStyle } from '../../common/button/buttonVariantStyle';
 import LinkCard from '../../common/cards/linkCard';
 
 const LinkEditor = () => {
@@ -53,9 +54,15 @@ const LinkEditor = () => {
         updateDraftLinks(draftLinks.filter(item => item.id !== id));
     }
 
+    console.log('draftLinks', draftLinks.length === 5);
+
     return (
         <div className='h-full'>
-            <button className="w-full mb-6" onClick={addLink}>+ Add new link</button>
+            <button
+                className={`${variantStyle('outline')} w-full mb-6`}
+                onClick={addLink}
+                disabled={draftLinks.length === 5}
+            >+ Add new link</button>
             {
                 /* 
                  Created a scrollable div to make the links scrollable
@@ -66,7 +73,7 @@ const LinkEditor = () => {
                 */
             }
             <div className='h-full relative overflow-hidden'>
-                <div className='h-[90%] w-full absolute overflow-x-hidden overflow-y-auto scrollable'>
+                <div className='h-[93%] w-full absolute overflow-x-hidden overflow-y-auto scrollable'>
                     <DragDropContext onDragEnd={onDragEnd}>
                         <Droppable droppableId="list">
                             {provided => (

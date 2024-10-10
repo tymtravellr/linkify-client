@@ -1,12 +1,13 @@
-import Select from 'react-select';
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const options = [
   {
-    value: 'gitHub',
+    value: 'github',
     label: 'GitHub'
   },
   {
-    value: 'youTube',
+    value: 'youtube',
     label: 'YouTube'
   },
   {
@@ -14,7 +15,7 @@ const options = [
     label: 'Twitter'
   },
   {
-    value: 'linkedIn',
+    value: 'linkedin',
     label: 'LinkedIn'
   },
   {
@@ -53,20 +54,26 @@ const LinkCard = ({
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Platform</label>
-          <Select
-            label="Single select"
-            placeholder={options[0].label}
-            defaultValue={options[0].value}
-            options={options}
-            onChange={(e) => updateLink(item.id, 'platform', e.label)} />
+          <Select onValueChange={(value) => updateLink(item.id, 'platform', value)}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Github" />
+            </SelectTrigger>
+            <SelectContent>
+              {
+                options.map((option, index) => (
+                  <SelectItem key={index} value={option.value}>{option.label}</SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Link</label>
-          <input
+          <Input
             type="url"
             value={item.link}
             onChange={(e) => updateLink(item.id, 'link', e.target.value)}
-            placeholder="https://www.example.com/username"
+            placeholder="https://www.example.com"
           />
           {
             !item.valid && (

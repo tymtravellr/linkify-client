@@ -81,7 +81,7 @@ const Editor = () => {
     <main className="h-full">
       <section className="h-full flex gap-4">
         <PhonePreview />
-        <div className="py-10 px-6 bg-white w-2/3 flex flex-col">
+        <div className="py-10 px-6 bg-white w-2/3 flex flex-col rounded-lg">
           <EditorHeader
             title={view === 'links'
               ? 'Customize your links'
@@ -95,7 +95,7 @@ const Editor = () => {
               ? <LinkEditor />
               : <ProfileCustomization />
           }
-          <div className="flex justify-end relative z-30 pt-4 border-t">
+          <div className="flex justify-end relative z-30 pt-4 border-t bg-white">
             <button onClick={handleSave} className={`${variantStyle()}`}>Save</button>
           </div>
         </div>
