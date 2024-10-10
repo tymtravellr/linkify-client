@@ -1,16 +1,13 @@
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
-import { useState } from 'react';
 import { v4 } from 'uuid';
-import { useUserStore } from '../../../store/store';
+import { useDraftStore } from '../../../store/draftStore';
+import LinkCard from '../../common/cards/linkCard';
 
 const LinkEditor = () => {
-    const { links, updateLinks } = useUserStore(state => state);
-    const [linkState, setLinkState] = useState(links);
 
-    const handleSave = () => {
-        updateLinks(linkState);
-    }
+    const { draftLinks, updateDraftLinks } = useDraftStore(state => state);
 
+    // Drag and drop functionality
     function onDragEnd(result) {
         if (!result.destination) {
             return;
@@ -21,12 +18,12 @@ const LinkEditor = () => {
         }
 
         const items = reorder(
-            linkState,
+            draftLinks,
             result.source.index,
             result.destination.index
         );
 
-        setLinkState(items);
+        updateDraftLinks(items);
     }
 
     const reorder = (list, startIndex, endIndex) => {
@@ -37,83 +34,70 @@ const LinkEditor = () => {
         return result;
     };
 
-
+    // Add, update and remove links
     const addLink = () => {
-        setLinkState([...linkState, { id: v4(), platform: "GitHub", link: "" }]);
+        updateDraftLinks([...draftLinks, { id: v4(), platform: "GitHub", link: "", valid: true }]);
     }
 
     const updateLink = (id, key, value) => {
-        const index = linkState.findIndex(item => item.id === id);
-        const updatedItem = { ...linkState[index], [key]: value };
-        const updatedLinks = [...linkState];
+        const index = draftLinks.findIndex(item => item.id === id);
+        const updatedItem = { ...draftLinks[index], [key]: value };
+        const updatedLinks = [...draftLinks];
         updatedLinks[index] = updatedItem;
-        setLinkState(updatedLinks);
+        // updating valid field to true so that the error message is removed
+        updatedLinks[index].valid = true;
+        updateDraftLinks(updatedLinks);
     }
 
     const removeLink = (id) => {
-        setLinkState(linkState.filter(item => item.id !== id));
+        updateDraftLinks(draftLinks.filter(item => item.id !== id));
     }
 
     return (
-        <div>
-            <div>
-                <button className="w-full mb-6" onClick={addLink}>+ Add new link</button>
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId="list">
-                        {provided => (
-                            <div ref={provided.innerRef} {...provided.droppableProps}>
-                                {
-                                    linkState.map((item, index) => (
-                                        <Draggable draggableId={String(item.id)} index={index} key={item.id}>
-                                            {provided => (
-                                                <div
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    className={`mb-8`}
-                                                >
-                                                    <div key={index} className="bg-white p-6 rounded-lg shadow mb-6">
-                                                        <div className="flex justify-between items-center mb-4">
-                                                            <h2 className="text-lg font-semibold">Link #{index}</h2>
-                                                            <button onClick={() => removeLink(item.id)}>Remove</button>
-                                                        </div>
-                                                        <div className="space-y-4">
-                                                            <div>
-                                                                <label className="block text-sm font-medium text-gray-700 mb-1">Platform</label>
-                                                                <select onChange={(e) => updateLink(item.id, 'platform', e.target.value)}>
-                                                                    <option value="GitHub">GitHub</option>
-                                                                    <option value="YouTube">YouTube</option>
-                                                                    <option value="Twitter">Twitter</option>
-                                                                    <option value="LinkedIn">LinkedIn</option>
-                                                                    <option value="Instagram">Instagram</option>
-                                                                    <option value="Facebook">Facebook</option>
-                                                                    <option value="Website">Website</option>
-                                                                </select>
-                                                            </div>
-                                                            <div>
-                                                                <label className="block text-sm font-medium text-gray-700 mb-1">Link</label>
-                                                                <input
-                                                                    type="url"
-                                                                    value={item.link}
-                                                                    onChange={(e) => updateLink(item.id, 'link', e.target.value)}
-                                                                    placeholder="https://www.example.com/username"
-                                                                />
-                                                            </div>
-                                                        </div>
+        <div className='h-full'>
+            <button className="w-full mb-6" onClick={addLink}>+ Add new link</button>
+            {
+                /* 
+                 Created a scrollable div to make the links scrollable
+                 1. The parent div has a height of 100% and relative position
+                 2. The child div has a height of 90% and absolute position. Given 90% to make space from the bottom so that the scrollbar bottom is visible.
+                 3. The child div has overflow-auto.
+                 4. on mobile child's height will be 100% and position will be relative.
+                */
+            }
+            <div className='h-full relative overflow-hidden'>
+                <div className='h-[90%] w-full absolute overflow-x-hidden overflow-y-auto scrollable'>
+                    <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable droppableId="list">
+                            {provided => (
+                                <div ref={provided.innerRef} {...provided.droppableProps}>
+                                    {
+                                        draftLinks?.map((item, index) => (
+                                            <Draggable draggableId={String(item.id)} index={index} key={item.id}>
+                                                {provided => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        className={`mb-8`}
+                                                    >
+                                                        <LinkCard
+                                                            index={index}
+                                                            item={item}
+                                                            updateLink={updateLink}
+                                                            removeLink={removeLink}
+                                                        />
                                                     </div>
-                                                </div>
-                                            )}
-                                        </Draggable>
-                                    ))
-                                }
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
-            </div>
-            <div>
-                <button className="w-full" onClick={handleSave}>Save</button>
+                                                )}
+                                            </Draggable>
+                                        ))
+                                    }
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
             </div>
         </div>
     )

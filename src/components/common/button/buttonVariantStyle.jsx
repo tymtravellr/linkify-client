@@ -1,6 +1,5 @@
-// Button variant styles
-// options: ['primary', 'outline']
-
+// Button variant style
+// options: primary, outline
 export const variantStyle = (variant = 'primary') => {
     const commonStyle = 'px-6 py-2 rounded-lg font-semibold transition-all duration-300 ease-in-out';
     const primaryStyle = 'bg-indigo-500 text-white hover:bg-indigo-600';

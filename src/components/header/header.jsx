@@ -2,7 +2,7 @@ import { ArrowLeft, Eye, Forward, Link2Icon, UserCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import logoSm from "../../assets/logo-sm.png";
 import logo from "../../assets/logo.png";
-import { useEditorViewStore } from "../../store/store";
+import { useEditorViewStore } from "../../store/editorViewStore";
 import { variantStyle } from "../common/button/buttonVariantStyle";
 
 const Header = () => {
@@ -15,6 +15,11 @@ const Header = () => {
     return (
         <header className="py-3 px-6 bg-white rounded-lg">
             <div className="flex justify-between items-center">
+                {
+                    /* 
+                     As we have two different layouts for the header, i used condtional rendering to display the difference.
+                    */
+                }
                 {
                     pathname === '/' ? (
                         <>

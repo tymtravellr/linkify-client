@@ -1,5 +1,5 @@
 import { Github, Linkedin, Youtube } from "lucide-react";
-import { useUserStore } from "../../store/store";
+import { useUserStore } from "../../store/userStore";
 
 const Preview = () => {
 

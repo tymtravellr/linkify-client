@@ -1,10 +1,9 @@
 //Preview editor data in mobile mockup
 import { Github, Linkedin, Youtube } from "lucide-react";
-import { useUserStore } from "../../../store/store";
+import { useUserStore } from "../../../store/userStore";
 
 const PhonePreview = () => {
     const { firstname, lastname, email, image, links } = useUserStore(state => state);
-    console.log("links", links)
     return (
         <div className="bg-white p-6 border-l w-1/3">
             <div className="border-2 border-gray-300 rounded-3xl p-8 mx-auto" style={{ maxWidth: '300px' }}>
