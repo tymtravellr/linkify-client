@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useUserStore } from "../../../store/store";
 
-const ProfileView = () => {
+const ProfileCustomization = () => {
   const { firstname, lastname, email, image, updateProfile } = useUserStore(state => state);
   const [profile, setProfile] = useState({
     firstname: firstname,
@@ -60,4 +60,4 @@ const ProfileView = () => {
   )
 }
 
-export default ProfileView
+export default ProfileCustomization
