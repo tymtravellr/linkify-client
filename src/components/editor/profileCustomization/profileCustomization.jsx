@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui/input";
 import { useDraftStore } from "../../../store/draftStore";
 
 const ProfileCustomization = () => {
@@ -10,7 +11,7 @@ const ProfileCustomization = () => {
   return (
     <div className="flex-1">
       <div className="mb-6">
-        <div className="bg-gray-100 w-full p-4 flex justify-between items-center">
+        <div className="bg-gray-100 w-full p-4 flex justify-between items-center rounded-md">
           <p>
             Profile Picture
           </p>
@@ -29,35 +30,36 @@ const ProfileCustomization = () => {
             <p className="mt-2 text-sm text-gray-500">Image must be below 1024x1024px. <br /> Use PNG, JPG, or Webp format.</p>
           </div>
         </div>
-       
       </div>
-      <div>
-        <label htmlFor="first-name">First name*</label>
-        <input
-          id="first-name"
-          value={draftFirstname}
-          className="mt-1"
-          onChange={(e) => handleUpdateDraftProfile({ draftFirstname: e.target.value })}
-        />
-      </div>
-      <div>
-        <label htmlFor="last-name">Last name*</label>
-        <input
-          id="last-name"
-          value={draftLastname}
-          className="mt-1"
-          onChange={(e) => handleUpdateDraftProfile({ draftLastname: e.target.value })}
-        />
-      </div>
-      <div className="mb-6">
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          value={draftEmail}
-          className="mt-1"
-          onChange={(e) => handleUpdateDraftProfile({ draftEmail: e.target.value })}
-        />
+      <div className="bg-gray-100 w-full p-4 flex flex-col gap-3">
+        <div className="flex justify-between items-center">
+          <label htmlFor="first-name">First name*</label>
+          <Input
+            id="first-name"
+            value={draftFirstname}
+            className="max-w-md w-full"
+            onChange={(e) => handleUpdateDraftProfile({ draftFirstname: e.target.value })}
+          />
+        </div>
+        <div className="flex justify-between items-center">
+          <label htmlFor="last-name">Last name*</label>
+          <Input
+            id="last-name"
+            value={draftLastname}
+            className="max-w-md w-full"
+            onChange={(e) => handleUpdateDraftProfile({ draftLastname: e.target.value })}
+          />
+        </div>
+        <div className="flex justify-between items-center">
+          <label htmlFor="email">Email</label>
+          <Input
+            id="email"
+            type="email"
+            value={draftEmail}
+            className="max-w-md w-full"
+            onChange={(e) => handleUpdateDraftProfile({ draftEmail: e.target.value })}
+          />
+        </div>
       </div>
     </div>
   )
