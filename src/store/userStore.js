@@ -14,5 +14,24 @@ export const useUserStore = create((set) => ({
         lastname: data.lastname,
         email: data.email,
         image: data.image
-    }))
+    })),
+    fetchInitialData: async () => {
+        try {
+            const response = await fetch('/api/user-data');
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            const data = await response.json();
+            set(() => ({
+                firstname: data.firstname,
+                lastname: data.lastname,
+                email: data.email,
+                image: data.image,
+                links: data.links
+            }));
+        } catch (error) {
+            console.error('Error fetching initial data:', error);
+            // You might want to set some error state here
+        }
+    }
 }))
