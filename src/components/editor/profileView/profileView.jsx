@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUserStore } from "../../../../store/store";
+import { useUserStore } from "../../../store/store";
 
 const ProfileView = () => {
   const { firstname, lastname, email, image, updateProfile } = useUserStore(state => state);

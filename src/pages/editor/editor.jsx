@@ -1,8 +1,7 @@
-import LinkView from "../../components/layout/editor/linkView/linkView";
-import PhonePreview from "../../components/layout/editor/phonePreview/phonePreview";
-import ProfileView from "../../components/layout/editor/profileView/profileView";
+import LinkView from "../../components/editor/linkView/linkView";
+import PhonePreview from "../../components/editor/phonePreview/phonePreview";
+import ProfileView from "../../components/editor/profileView/profileView";
 import { useEditorViewStore } from "../../store/store";
-
 
 const Editor = () => {
   const view = useEditorViewStore(state => state.view)

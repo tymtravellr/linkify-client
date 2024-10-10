@@ -1,7 +1,7 @@
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { useState } from "react";
 import { v4 } from "uuid";
-import { useUserStore } from "../../../../store/store";
+import { useUserStore } from "../../../store/store";
 
 const LinkView = () => {
   const { links, updateLinks } = useUserStore(state => state);

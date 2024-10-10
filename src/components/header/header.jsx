@@ -1,7 +1,7 @@
 import { Eye } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEditorViewStore } from "../../../store/store";
-import Button from "../../ui/button/button";
+import { useEditorViewStore } from "../../store/store";
+import Button from "../ui/button/button";
 
 const Header = () => {
     const { setLinksView, setProfileView } = useEditorViewStore(state => state);

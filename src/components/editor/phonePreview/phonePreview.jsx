@@ -1,6 +1,6 @@
 //Preview editor data in mobile mockup
 import { Github, Linkedin, Youtube } from "lucide-react";
-import { useUserStore } from "../../../../store/store";
+import { useUserStore } from "../../../store/store";
 
 const PhonePreview = () => {
     const { firstname, lastname, email, image, links } = useUserStore(state => state);
