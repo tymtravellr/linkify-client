@@ -3,6 +3,7 @@
 Linkify is a simple project that allows users to manage and share their social media links. Follow the instructions below to set up and run the project.
 
 Before running the project, make sure you have `Node.js` and `npm` installed on your machine.
+I have also developed a server for this project. You can find the server repository [here](https://github.com/tymtravellr/linkify-server).
 
 ## Installation
 
