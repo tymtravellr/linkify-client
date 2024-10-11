@@ -38,7 +38,7 @@ const LinkCard = ({
   updateLink,
   removeLink,
 }) => {
-console.log('item', item)
+
   return (
     <div key={index} className="bg-slate-100 p-6 rounded-lg mb-6">
       <div className="flex justify-between items-center mb-4">

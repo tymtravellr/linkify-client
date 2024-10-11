@@ -24,7 +24,7 @@ export const useUserStore = create((set) => ({
     saveLinks: (links) => set(async () => {
         set({ links });
         set({ isLoading: true });
-        console.log('cookie', getCookie('authToken'));
+
         try {
             const email = getCookie('email');
             const response = await fetch(`${import.meta.env.VITE_APP_API_ROUTE}api/user/${email}/links`, {
@@ -50,7 +50,7 @@ export const useUserStore = create((set) => ({
             image: data.image
         });
         set({ isLoading: true });
-        console.log('cookie', getCookie('authToken'));
+
         try {
             const email = getCookie('email');
             const response = await fetch(`${import.meta.env.VITE_APP_API_ROUTE}api/user/${email}/profile`, {
