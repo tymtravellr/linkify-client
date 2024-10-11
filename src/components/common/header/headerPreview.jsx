@@ -10,15 +10,15 @@ const HeaderPreview = () => {
     const { isAuthenticated, email } = useAuthStore(state => state);
     const [isCopied, setIsCopied] = useState(false);
 
-    // const handleShareLink = () => {
-    //     const link = `https://linkify-client.vercel.app/profile/${email}`
-    //     // copy to clipboard
-    //     navigator.clipboard.writeText(link).then(() => {
-    //         setIsCopied(true);
-    //     }).catch((error) => {
-    //         console.error('Copy failed:', error);
-    //     });
-    // }
+    const handleShareLink = () => {
+        const link = `https://linkify-client.vercel.app/profile/${email}`
+        // copy to clipboard
+        navigator.clipboard.writeText(link).then(() => {
+            setIsCopied(true);
+        }).catch((error) => {
+            console.error('Copy failed:', error);
+        });
+    }
 
     useEffect(() => {
         if (isCopied) {
@@ -44,7 +44,7 @@ const HeaderPreview = () => {
                                 Back to Editor
                             </span>
                         </Link>
-                        {/* <button
+                        <button
                             className={`${variantStyle()}`}
                             onClick={() => handleShareLink()}
                         >
@@ -56,19 +56,7 @@ const HeaderPreview = () => {
                                     isCopied ? 'Copied!' : 'Share Link'
                                 }
                             </span>
-                        </button> */}
-                        <Link
-                            to={`/profile/${email}`}
-                            className={`${variantStyle()}`}
-                            target="_blank"
-                        >
-                            <span className="block md:hidden">
-                                <Forward />
-                            </span>
-                            <span className="hidden md:block">
-                                Share Link
-                            </span>
-                        </Link>
+                        </button>
                     </>
                 ) : (
                     <>
