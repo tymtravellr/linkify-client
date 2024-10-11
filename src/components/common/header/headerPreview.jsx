@@ -1,18 +1,42 @@
 import { useAuthStore } from "@/store/authStore";
 import { ArrowLeft, Forward } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoSm from "../../../assets/logo-sm.png";
 import logo from "../../../assets/logo.png";
 import { variantStyle } from "../button/buttonVariantStyle";
 
 const HeaderPreview = () => {
-    const { isAuthenticated } = useAuthStore(state => state);
+    const { isAuthenticated, email } = useAuthStore(state => state);
+    const [isCopied, setIsCopied] = useState(false);
+
+    const handleShareLink = () => {
+        const link = `https://linkify-client.vercel.app/profile/${email}`
+        // copy to clipboard
+        navigator.clipboard.writeText(link).then(() => {
+            setIsCopied(true);
+        }).catch((error) => {
+            console.error('Copy failed:', error);
+        });
+    }
+
+    useEffect(() => {
+        if (isCopied) {
+            setTimeout(() => {
+                setIsCopied(false);
+            }, 2000);
+        }
+    }, [isCopied])
+
     return (
         <div className="flex justify-between items-center">
             {
                 isAuthenticated ? (
                     <>
-                        <Link to="/" className={`${variantStyle('outline')}`}>
+                        <Link
+                            to="/"
+                            className={`${variantStyle('outline')}`}
+                        >
                             <span className="block md:hidden">
                                 <ArrowLeft />
                             </span>
@@ -20,12 +44,17 @@ const HeaderPreview = () => {
                                 Back to Editor
                             </span>
                         </Link>
-                        <button className={`${variantStyle()}`}>
+                        <button
+                            className={`${variantStyle()}`}
+                            onClick={() => handleShareLink()}
+                        >
                             <span className="block md:hidden">
                                 <Forward />
                             </span>
                             <span className="hidden md:block">
-                                Share Link
+                                {
+                                    isCopied ? 'Copied!' : 'Share Link'
+                                }
                             </span>
                         </button>
                     </>

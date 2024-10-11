@@ -8,10 +8,6 @@ const Header = () => {
     // Routing functionality
     const { pathname } = useLocation();
 
-    // Global state
-
-
-
     return (
         <header className="py-3 px-6 bg-white rounded-lg">
             {
