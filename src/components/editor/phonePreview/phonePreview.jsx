@@ -43,8 +43,13 @@ const platforms = [
 
 const PhonePreview = () => {
     const { firstName, lastName, email, image, links } = useUserStore(state => state);
-
-    console.log('data', { firstName, lastName, email, image, links });
+    const modifyLink = (link) => {
+        if (link.includes('http://') || link.includes('https://')) {
+            return link;
+        } else {
+            return `https://${link.toLowerCase().replace(/\s+/g, '')}`;
+        }
+    }
     return (
         <div className="bg-white p-6 border-l w-1/3 flex justify-center items-center rounded-lg">
             <div className="border-2 flex flex-col gap-8 border-gray-300 rounded-3xl py-8 px-4 mx-auto max-w-[260px] w-full min-h-[500px] overflow-hidden">
@@ -70,7 +75,7 @@ const PhonePreview = () => {
                 <div className="flex flex-col gap-4">
                     {links.map((link, index) => (
                         <Link
-                            to="/"
+                            to={modifyLink(link.link)}
                             key={index}
                             className={`w-full text-white flex justify-between items-center px-3 py-2 rounded-md ${platforms.find(platform => platform.name === link.platform.toLowerCase())?.color}`}
                             target="_blank"

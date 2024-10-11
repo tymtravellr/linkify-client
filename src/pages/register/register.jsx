@@ -5,16 +5,16 @@ import { useAuthStore } from "@/store/authStore";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
-    const { login, isLoading } = useAuthStore(state => state);
+const Register = () => {
+    const { register, isLoading } = useAuthStore(state => state);
     const navigate = useNavigate();
     const [error, setError] = useState(false);
 
-    const handleLogin = async (event) => {
+    const handleRegister = async (event) => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
-        const success = await login({ email, password });
+        const success = await register({ email, password });
         if (success) {
             navigate('/');
         } else {
@@ -31,9 +31,9 @@ const Login = () => {
     return (
         <section className="relative h-screen flex justify-center items-center">
             <div className="max-w-[460px] w-full px-10 pt-6 pb-12 bg-white rounded-md space-y-6">
-                <h1 className="font-bold text-3xl text-center">Login</h1>
+                <h1 className="font-bold text-3xl text-center">Register</h1>
                 <div className="w-full space-y-4">
-                    <form onSubmit={handleLogin} className="w-full flex flex-col gap-4">
+                    <form onSubmit={handleRegister} className="w-full flex flex-col gap-4">
                         <div className="space-y-1">
                             <label htmlFor="email" className="text-sm text-gray-400">Email</label>
                             <Input type="email" id="email" name="email" required />
@@ -47,11 +47,11 @@ const Login = () => {
                             type="submit"
                             disabled={isLoading}
                         >
-                            Login
+                            Register
                         </button>
                     </form>
                     <p className="text-sm">
-                        Don&apos;t have an account? <Link to="/register" className="text-blue-500">Register</Link>
+                        Already have an account? <Link to="/login" className="text-blue-500">Login</Link>
                     </p>
                 </div>
                 {
@@ -62,4 +62,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Register

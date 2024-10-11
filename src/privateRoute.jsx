@@ -11,7 +11,7 @@ const PrivateRoute = () => {
         const fetchData = async () => {
             if (isAuthenticated && email) {
                 try {
-                    const response = await fetch(`http://localhost:5000/api/user/${email}`);
+                    const response = await fetch(`${import.meta.env.VITE_APP_API_ROUTE}api/user/${email}`);
                     if (!response.ok) throw new Error('User data fetch failed');
                     const { user } = await response.json();
                     updateLinks(user.links);

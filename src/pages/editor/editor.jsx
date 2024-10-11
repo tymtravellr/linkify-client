@@ -26,6 +26,7 @@ const Editor = () => {
     draftfirstName,
     draftlastName,
     draftEmail,
+    draftImage,
     updateDraftLinks,
     validateLink,
     updateDraftProfile
@@ -55,9 +56,10 @@ const Editor = () => {
         firstName: draftfirstName,
         lastName: draftlastName,
         email: draftEmail,
+        image: draftImage
       })
     }
-  }, [view, validateLink, draftfirstName, draftlastName, draftEmail, saveLinks, saveProfile]);
+  }, [view, validateLink, draftfirstName, draftlastName, draftEmail,draftImage, saveLinks, saveProfile]);
 
   // prevent user from leaving the page when there are unsaved changes
   // useEffect(() => {

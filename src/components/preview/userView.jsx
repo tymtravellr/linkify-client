@@ -50,9 +50,9 @@ const PreviewUserView = () => {
 
         const fetchUserView = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/user/view/${userParam}`);
+                const response = await fetch(`${import.meta.env.VITE_APP_API_ROUTE}api/user/view/${userParam}`);
                 if (!response.ok) throw new Error('User data fetch failed');
-                const { userData } = await response.json();
+                // const { userData } = await response.json();
 
             } catch (error) {
                 console.error('User data fetch error:', error);

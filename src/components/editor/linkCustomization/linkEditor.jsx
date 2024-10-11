@@ -54,8 +54,6 @@ const LinkEditor = () => {
         updateDraftLinks(draftLinks.filter(item => item.id !== id));
     }
 
-    console.log('draftLinks', draftLinks.length === 5);
-
     return (
         <div className='h-full'>
             <button

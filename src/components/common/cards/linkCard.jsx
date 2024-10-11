@@ -38,7 +38,7 @@ const LinkCard = ({
   updateLink,
   removeLink,
 }) => {
-
+console.log('item', item)
   return (
     <div key={index} className="bg-slate-100 p-6 rounded-lg mb-6">
       <div className="flex justify-between items-center mb-4">
@@ -56,7 +56,7 @@ const LinkCard = ({
           <label className="block text-sm font-medium text-gray-700 mb-1">Platform</label>
           <Select onValueChange={(value) => updateLink(item.id, 'platform', value)}>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Github" />
+              <SelectValue placeholder={item.platform || 'Github'} />
             </SelectTrigger>
             <SelectContent>
               {
