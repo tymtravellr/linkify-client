@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 // Profile page for shared links and user details
 const UserProfilePage = () => {
 
-    const { email } = useParams();
-    console.log(email);
+    const params = useParams();
+    console.log(params);
 
     const [userData, setUserData] = useState({
         firstName: "",
@@ -19,7 +19,7 @@ const UserProfilePage = () => {
     useEffect(() => {
         const fetchUserView = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_APP_API_ROUTE}api/user/view/${email}`);
+                const response = await fetch(`${import.meta.env.VITE_APP_API_ROUTE}api/user/view/${params.email}`);
                 if (!response.ok) throw new Error('User data fetch failed');
                 const { userData } = await response.json();
                 setUserData(userData);
@@ -29,7 +29,7 @@ const UserProfilePage = () => {
             }
         }
         fetchUserView();
-    }, [email]);
+    }, [params.email]);
 
     return (
         <div className="w-full flex justify-center pt-20">
