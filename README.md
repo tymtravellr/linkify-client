@@ -21,7 +21,7 @@ To install and run the Linkify client locally, follow these steps:
    npm install
 ```
 
-4. Create a .env.local file in the root directory and add the following environment variable for the API route:
+4. Create a `.env.local` file in the root directory and add the following environment variable for the API route:
 
 ```bash
 VITE_APP_API_ROUTE=https://linkify-server.vercel.app/

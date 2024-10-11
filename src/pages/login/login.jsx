@@ -29,7 +29,7 @@ const LoginPage = () => {
     }, [error])
 
     return (
-        <section className="relative h-screen flex justify-center items-center">
+        <section className="relative h-full flex justify-center items-center">
             <div className="max-w-[460px] w-full px-10 pt-6 pb-12 bg-white rounded-md space-y-6">
                 <h1 className="font-bold text-3xl text-center">Login</h1>
                 <div className="w-full space-y-4">
