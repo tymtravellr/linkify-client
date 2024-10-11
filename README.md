@@ -5,7 +5,7 @@
 ```bash
 
 git clone https://github.com/tymtravellr/linkify-client.git
-cd linkify
+cd linkify-client
 npm install
 
 ```
