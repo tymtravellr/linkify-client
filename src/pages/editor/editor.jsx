@@ -12,21 +12,20 @@ const Editor = () => {
 
   const view = useEditorViewStore(state => state.view)
   const {
-    firstname,
-    lastname,
+    firstName,
+    lastName,
     email,
     image,
     links,
-    updateLinks,
-    updateProfile
+    saveLinks,
+    saveProfile,
+    isLoading
   } = useUserStore(state => state);
 
   const {
-    draftFirstname,
-    draftLastname,
+    draftfirstName,
+    draftlastName,
     draftEmail,
-    draftImage,
-    draftLinks,
     updateDraftLinks,
     validateLink,
     updateDraftProfile
@@ -36,46 +35,44 @@ const Editor = () => {
   useEffect(() => {
     updateDraftLinks(links);
     updateDraftProfile({
-      draftFirstname: firstname,
-      draftLastname: lastname,
+      draftfirstName: firstName,
+      draftlastName: lastName,
       draftEmail: email,
       draftImage: image
     });
-  }, [links, updateDraftLinks, updateDraftProfile, firstname, lastname, email, image]);
+  }, [links, updateDraftLinks, updateDraftProfile, firstName, lastName, email, image]);
 
-
-  const handleSave = useCallback(() => {
+  const handleSave = useCallback(async () => {
     if (view === 'links') {
       validateLink();
       const updatedLinks = useDraftStore.getState().draftLinks;
       const validLinks = updatedLinks.every(link => link.valid === true);
       if (validLinks) {
-        updateLinks(updatedLinks);
+        saveLinks(updatedLinks);
       }
     } else {
-      updateProfile({
-        firstname: draftFirstname,
-        lastname: draftLastname,
+      saveProfile({
+        firstName: draftfirstName,
+        lastName: draftlastName,
         email: draftEmail,
-        image: draftImage
-      });
+      })
     }
-  }, [view, updateLinks, updateProfile, validateLink, draftFirstname, draftLastname, draftEmail, draftImage]);
+  }, [view, validateLink, draftfirstName, draftlastName, draftEmail, saveLinks, saveProfile]);
 
   // prevent user from leaving the page when there are unsaved changes
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = '';
-    };
+  // useEffect(() => {
+  //   const handleBeforeUnload = (event) => {
+  //     event.preventDefault();
+  //     event.returnValue = '';
+  //   };
 
-    if (draftLinks.length > 0 || draftFirstname || draftLastname || draftEmail || draftImage) {
-      window.addEventListener('beforeunload', handleBeforeUnload);
-    }
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [draftLinks, draftFirstname, draftLastname, draftEmail, draftImage]);
+  //   if (draftLinks.length > 0 || draftfirstName || draftlastName || draftImage) {
+  //     window.addEventListener('beforeunload', handleBeforeUnload);
+  //   }
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //   };
+  // }, [draftLinks, draftfirstName, draftlastName, draftImage]);
 
   return (
     <main className="h-full">
@@ -96,7 +93,11 @@ const Editor = () => {
               : <ProfileCustomization />
           }
           <div className="flex justify-end relative z-30 pt-4 border-t bg-white">
-            <button onClick={handleSave} className={`${variantStyle()}`}>Save</button>
+            <button
+              onClick={handleSave}
+              className={`${variantStyle()}`}
+              disabled={isLoading}
+            >Save</button>
           </div>
         </div>
       </section>

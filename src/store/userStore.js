@@ -1,37 +1,62 @@
-import { create } from 'zustand'
+import { getCookie } from '@/lib/cookieUtils';
+import { create } from 'zustand';
 
 // This store is used to manage the user's profile details and links.
-// for updating links i am replacing the old links with the new links. when user adds a new link, i am appending the new link to the existing links.
 export const useUserStore = create((set) => ({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     image: "",
     links: [],
-    updateLinks: (links) => set(() => ({ links: links })),
+    isLoading: false,
+    updateLinks: (links) => set({ links }),
     updateProfile: (data) => set(() => ({
-        firstname: data.firstname,
-        lastname: data.lastname,
+        firstName: data.firstName,
+        lastName: data.lastName,
         email: data.email,
         image: data.image
     })),
-    fetchInitialData: async () => {
+    saveLinks: (links) => set(async () => {
+        set({ links });
+        set({ isLoading: true });
+        console.log("links", links);
         try {
-            const response = await fetch('/api/user-data');
-            if (!response.ok) {
-                throw new Error('Failed to fetch user data');
-            }
-            const data = await response.json();
-            set(() => ({
-                firstname: data.firstname,
-                lastname: data.lastname,
-                email: data.email,
-                image: data.image,
-                links: data.links
-            }));
+            const email = getCookie('email');
+            const response = await fetch(`http://localhost:5000/api/user/${email}/links`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${getCookie('authToken')}`
+                },
+                body: JSON.stringify(links)
+            });
+            if (!response.ok) throw new Error('Link update failed');
+            console.log('Links updated successfully');
+            set({ isLoading: false });
         } catch (error) {
-            console.error('Error fetching initial data:', error);
-            // You might want to set some error state here
+            console.error('Link update error:', error);
+            set({ isLoading: false });
         }
-    }
+    }),
+    saveProfile: (data) => set(async () => {
+        set({ data })
+        set({ isLoading: true });
+        try {
+            const email = getCookie('email');
+            const response = await fetch(`http://localhost:5000/api/user/${email}/profile`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${getCookie('authToken')}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) throw new Error('Link update failed');
+            console.log('Links updated successfully');
+            set({ isLoading: false });
+        } catch (error) {
+            console.error('Link update error:', error);
+            set({ isLoading: false });
+        }
+    })
 }))

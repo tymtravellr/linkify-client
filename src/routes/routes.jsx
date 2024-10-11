@@ -1,7 +1,9 @@
+import Layout from "@/layout/layout";
+import Editor from "@/pages/editor/editor";
+import Login from "@/pages/login/login";
+import Preview from "@/pages/preview/preview";
+import PrivateRoute from "@/privateRoute";
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "../layout/layout";
-import Editor from "../pages/editor/editor";
-import Preview from "../pages/preview/preview";
 
 export const Routes = createBrowserRouter([
     {
@@ -9,12 +11,21 @@ export const Routes = createBrowserRouter([
         element: <Layout />,
         children: [
             {
-                index: true,
-                element: <Editor/>
+                path: '/login',
+                element: <Login />
             },
             {
                 path: '/preview',
-                element: <Preview/>
+                element: <Preview />
+            },
+            {
+                element: <PrivateRoute />,
+                children: [
+                    {
+                        index: true,
+                        element: <Editor />
+                    }
+                ]
             }
         ]
     }

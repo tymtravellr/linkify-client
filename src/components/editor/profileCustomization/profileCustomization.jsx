@@ -1,9 +1,11 @@
-import PhotoUploadWidget from "@/components/photoUploadWidget/photoUploadWidget";
+import PhotoUploadWidget from "@/components/editor/photoUploadWidget/photoUploadWidget";
 import { Input } from "@/components/ui/input";
+import { useAuthStore } from "@/store/authStore";
 import { useDraftStore } from "../../../store/draftStore";
 
 const ProfileCustomization = () => {
-  const { draftFirstname, draftLastname, draftEmail, updateDraftProfile } = useDraftStore(state => state);
+  const { draftfirstName, draftlastName, draftEmail, updateDraftProfile } = useDraftStore(state => state);
+  const { logout } = useAuthStore(state => state);
 
   const handleUpdateDraftProfile = (data) => {
     updateDraftProfile(data);
@@ -27,20 +29,20 @@ const ProfileCustomization = () => {
           <label htmlFor="first-name">First name*</label>
           <Input
             id="first-name"
-            value={draftFirstname}
+            value={draftfirstName}
             className="max-w-md w-full"
             placeholder="John"
-            onChange={(e) => handleUpdateDraftProfile({ draftFirstname: e.target.value })}
+            onChange={(e) => handleUpdateDraftProfile({ draftfirstName: e.target.value })}
           />
         </div>
         <div className="flex justify-between items-center">
           <label htmlFor="last-name">Last name*</label>
           <Input
             id="last-name"
-            value={draftLastname}
+            value={draftlastName}
             className="max-w-md w-full"
             placeholder="Doe"
-            onChange={(e) => handleUpdateDraftProfile({ draftLastname: e.target.value })}
+            onChange={(e) => handleUpdateDraftProfile({ draftlastName: e.target.value })}
           />
         </div>
         <div className="flex justify-between items-center">
@@ -51,9 +53,12 @@ const ProfileCustomization = () => {
             value={draftEmail}
             className="max-w-md w-full"
             placeholder="email@example.com"
-            onChange={(e) => handleUpdateDraftProfile({ draftEmail: e.target.value })}
+            disabled
           />
         </div>
+      </div>
+      <div>
+        <button onClick={() => logout()} className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md">Logout</button>
       </div>
     </div>
   )
