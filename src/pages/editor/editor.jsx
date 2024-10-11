@@ -1,3 +1,4 @@
+import Notification from "@/components/common/notification/notification";
 import { useAuthStore } from "@/store/authStore";
 import { useCallback, useEffect } from "react";
 import { variantStyle } from "../../components/common/button/buttonVariantStyle";
@@ -20,7 +21,9 @@ const EditorPage = () => {
     links,
     saveLinks,
     saveProfile,
-    isLoading
+    isLoading,
+    isSavingFinished,
+    resetIsSavingFinished
   } = useUserStore(state => state);
 
   const {
@@ -64,8 +67,17 @@ const EditorPage = () => {
     }
   }, [view, validateLink, draftfirstName, draftlastName, draftEmail, draftImage, saveLinks, saveProfile]);
 
+  // reset isSavingFinished after 3 seconds to hide the notification
+  useEffect(() => {
+    if (isSavingFinished) {
+      setTimeout(() => {
+        resetIsSavingFinished();
+      }, 3000);
+    }
+  }, [isSavingFinished, resetIsSavingFinished]);
+
   return (
-    <main className="h-full">
+    <main className="h-full relative">
       <section className="h-full flex gap-4">
         <PhonePreview />
         <div className="md:py-10 lg:px-6 md:px-10 p-6 bg-white lg:w-2/3 w-full flex flex-col rounded-lg">
@@ -94,6 +106,11 @@ const EditorPage = () => {
           </div>
         </div>
       </section>
+      {
+        isSavingFinished && <Notification
+          message="Your changes have been saved successfully!"
+        />
+      }
     </main>
   )
 }

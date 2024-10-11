@@ -14,6 +14,7 @@ export const useUserStore = create((set) => ({
     image: "",
     links: [],
     isLoading: false,
+    isSavingFinished: false,
     updateLinks: (links) => set({ links }),
     updateProfile: (data) => set(() => ({
         firstName: data.firstName,
@@ -24,7 +25,6 @@ export const useUserStore = create((set) => ({
     saveLinks: (links) => set(async () => {
         set({ links });
         set({ isLoading: true });
-
         try {
             const email = getCookie('email');
             const response = await fetch(`${import.meta.env.VITE_APP_API_ROUTE}api/user/${email}/links`, {
@@ -37,6 +37,7 @@ export const useUserStore = create((set) => ({
             });
             if (!response.ok) throw new Error('Link update failed');
             set({ isLoading: false });
+            set({ isSavingFinished: true });
         } catch (error) {
             console.error('Link update error:', error);
             set({ isLoading: false });
@@ -63,9 +64,11 @@ export const useUserStore = create((set) => ({
             });
             if (!response.ok) throw new Error('Link update failed');
             set({ isLoading: false });
+            set({ isSavingFinished: true });
         } catch (error) {
             console.error('Link update error:', error);
             set({ isLoading: false });
         }
-    })
+    }),
+    resetIsSavingFinished: () => set({ isSavingFinished: false })
 }))
