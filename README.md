@@ -2,9 +2,11 @@
 
 Linkify is a simple project that allows users to manage and share their social media links. Follow the instructions below to set up and run the project.
 
+Before running the project, make sure you have `Node.js` and `npm` installed on your machine.
+
 ## Installation
 
-To install and run the Linkify client locally, follow these steps:
+To install and run, follow these steps:
 
 1. Clone the repository:
 ```bash
@@ -29,7 +31,7 @@ VITE_APP_API_ROUTE=https://linkify-server.vercel.app/
 
 ## Running the Application
 
-To run the application locally, use the following command:
+To run the application, use the following command:
 
 ```bash
 npm run dev
