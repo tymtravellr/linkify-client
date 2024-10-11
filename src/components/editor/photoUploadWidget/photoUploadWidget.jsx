@@ -20,13 +20,9 @@ const PhotoUploadWidget = () => {
                 className="w-full h-full object-cover cursor-pointer"
             />
             <span className="sr-only">Change Image</span>
-            {
-                /* 
-                Overlay    
-                */
-            }
+            { /* Overlay */}
             <div
-                className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out pointer-events-none cursor-pointer ">
+                className="absolute inset-0 bg-black/50 hidden lg:flex flex-col justify-center items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out pointer-events-none cursor-pointer ">
                 <Images />
                 <p>
                     {draftImage ? 'Change Image' : 'Upload Image'}

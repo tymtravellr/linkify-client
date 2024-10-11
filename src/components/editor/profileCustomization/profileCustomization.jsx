@@ -1,31 +1,30 @@
 import PhotoUploadWidget from "@/components/editor/photoUploadWidget/photoUploadWidget";
 import { Input } from "@/components/ui/input";
-import { useAuthStore } from "@/store/authStore";
 import { useDraftStore } from "../../../store/draftStore";
 
 const ProfileCustomization = () => {
+
   const { draftfirstName, draftlastName, draftEmail, updateDraftProfile } = useDraftStore(state => state);
-  const { logout } = useAuthStore(state => state);
 
   const handleUpdateDraftProfile = (data) => {
     updateDraftProfile(data);
   }
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 md:pb-0 pb-10">
       <div className="mb-6">
-        <div className="bg-gray-50 w-full p-4 flex justify-between items-center rounded-md">
+        <div className="bg-gray-50 w-full p-4 flex md:flex-row flex-col md:justify-between justify-start md:items-center items-start gap-3 rounded-md">
           <p>
             Profile Picture
           </p>
-          <div className="flex items-center gap-4 max-w-md w-full">
+          <div className="flex md:flex-row flex-col md:items-center items-start gap-4 max-w-md w-full">
             <PhotoUploadWidget />
-            <p className="mt-2 text-sm text-gray-500">Image must be below 1024x1024px. <br /> Use PNG, JPG, or Webp format.</p>
+            <p className="mt-2 text-sm text-gray-400">Image must be below 1024x1024px. <br /> Use PNG, JPG, or Webp format.</p>
           </div>
         </div>
       </div>
       <div className="bg-gray-50 w-full p-4 flex flex-col gap-3 rounded-md">
-        <div className="flex justify-between items-center">
+        <div className="flex md:flex-row flex-col md:justify-between justify-start md:items-center items-start gap-2">
           <label htmlFor="first-name">First name*</label>
           <Input
             id="first-name"
@@ -35,7 +34,7 @@ const ProfileCustomization = () => {
             onChange={(e) => handleUpdateDraftProfile({ draftfirstName: e.target.value })}
           />
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex md:flex-row flex-col md:justify-between justify-start md:items-center items-start gap-2">
           <label htmlFor="last-name">Last name*</label>
           <Input
             id="last-name"
@@ -45,7 +44,7 @@ const ProfileCustomization = () => {
             onChange={(e) => handleUpdateDraftProfile({ draftlastName: e.target.value })}
           />
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex md:flex-row flex-col md:justify-between justify-start md:items-center items-start gap-2">
           <label htmlFor="email">Email</label>
           <Input
             id="email"
@@ -56,9 +55,6 @@ const ProfileCustomization = () => {
             disabled
           />
         </div>
-      </div>
-      <div>
-        <button onClick={() => logout()} className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md">Logout</button>
       </div>
     </div>
   )

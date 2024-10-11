@@ -71,7 +71,7 @@ const LinkEditor = () => {
                 */
             }
             <div className='h-full relative overflow-hidden'>
-                <div className='h-[93%] w-full absolute overflow-x-hidden overflow-y-auto scrollable'>
+                <div className='md:h-[93%] h-full w-full md:absolute relative overflow-x-hidden overflow-y-auto scrollable'>
                     <DragDropContext onDragEnd={onDragEnd}>
                         <Droppable droppableId="list">
                             {provided => (

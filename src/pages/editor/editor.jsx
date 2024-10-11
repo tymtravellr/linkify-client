@@ -1,14 +1,15 @@
+import { useAuthStore } from "@/store/authStore";
 import { useCallback, useEffect } from "react";
 import { variantStyle } from "../../components/common/button/buttonVariantStyle";
 import EditorHeader from "../../components/editor/editorHeader/editorHeader";
+import PhonePreview from "../../components/editor/editorPreviewer/editorPreviewer";
 import LinkEditor from "../../components/editor/linkCustomization/linkEditor";
-import PhonePreview from "../../components/editor/phonePreview/phonePreview";
 import ProfileCustomization from "../../components/editor/profileCustomization/profileCustomization";
 import { useDraftStore } from "../../store/draftStore";
 import { useEditorViewStore } from "../../store/editorViewStore";
 import { useUserStore } from "../../store/userStore";
 
-const Editor = () => {
+const EditorPage = () => {
 
   const view = useEditorViewStore(state => state.view)
   const {
@@ -31,6 +32,8 @@ const Editor = () => {
     validateLink,
     updateDraftProfile
   } = useDraftStore(state => state);
+
+  const { logout, isAuthenticated } = useAuthStore(state => state);
 
   // update draft data when main data changes
   useEffect(() => {
@@ -59,28 +62,13 @@ const Editor = () => {
         image: draftImage
       })
     }
-  }, [view, validateLink, draftfirstName, draftlastName, draftEmail,draftImage, saveLinks, saveProfile]);
-
-  // prevent user from leaving the page when there are unsaved changes
-  // useEffect(() => {
-  //   const handleBeforeUnload = (event) => {
-  //     event.preventDefault();
-  //     event.returnValue = '';
-  //   };
-
-  //   if (draftLinks.length > 0 || draftfirstName || draftlastName || draftImage) {
-  //     window.addEventListener('beforeunload', handleBeforeUnload);
-  //   }
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload);
-  //   };
-  // }, [draftLinks, draftfirstName, draftlastName, draftImage]);
+  }, [view, validateLink, draftfirstName, draftlastName, draftEmail, draftImage, saveLinks, saveProfile]);
 
   return (
     <main className="h-full">
       <section className="h-full flex gap-4">
         <PhonePreview />
-        <div className="py-10 px-6 bg-white w-2/3 flex flex-col rounded-lg">
+        <div className="md:py-10 lg:px-6 md:px-10 p-6 bg-white lg:w-2/3 w-full flex flex-col rounded-lg">
           <EditorHeader
             title={view === 'links'
               ? 'Customize your links'
@@ -94,7 +82,10 @@ const Editor = () => {
               ? <LinkEditor />
               : <ProfileCustomization />
           }
-          <div className="flex justify-end relative z-30 pt-4 border-t bg-white">
+          <div className="flex justify-end items-center gap-3 relative z-30 pt-4 border-t bg-white">
+            {
+              isAuthenticated && <button onClick={() => logout()} className="text-indigo-500 underline">Logout</button>
+            }
             <button
               onClick={handleSave}
               className={`${variantStyle()}`}
@@ -107,4 +98,4 @@ const Editor = () => {
   )
 }
 
-export default Editor;
+export default EditorPage;

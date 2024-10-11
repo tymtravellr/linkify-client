@@ -15,8 +15,8 @@ const Layout = () => {
     }, [isAuthenticated, navigate, pathname])
 
     return (
-        <div className='bg-gray-100  overflow-hidden'>
-            <div className="container space-y-4 h-screen p-8 flex flex-col">
+        <div className='bg-gray-100 overflow-hidden'>
+            <div className="container space-y-4 md:h-screen min-h-screen md:min-h-max md:p-8 p-5 flex flex-col">
                 {pathname !== '/login' && pathname !== '/register' && <Header />}
                 <Outlet />
             </div>

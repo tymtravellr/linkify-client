@@ -5,7 +5,7 @@ import { useAuthStore } from "@/store/authStore";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const LoginPage = () => {
     const { login, isLoading } = useAuthStore(state => state);
     const navigate = useNavigate();
     const [error, setError] = useState(false);
@@ -62,4 +62,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default LoginPage

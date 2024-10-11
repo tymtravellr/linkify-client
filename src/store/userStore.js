@@ -2,6 +2,11 @@ import { getCookie } from '@/lib/cookieUtils';
 import { create } from 'zustand';
 
 // This store is used to manage the user's profile details and links.
+// updateLinks: Updates the links in the store.
+// updateProfile: Updates the profile details in the store.
+// saveLinks: Saves the links to the server.
+// saveProfile: Saves the profile details to the server.
+
 export const useUserStore = create((set) => ({
     firstName: "",
     lastName: "",

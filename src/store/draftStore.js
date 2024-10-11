@@ -1,5 +1,9 @@
 import { create } from 'zustand';
 
+// This store is used to manage the draft profile details and links. This is for storing changes that is not saved yet. The reason for this is to allow the user to make changes to their profile and links before saving them to the server.
+// updateDraftLinks: Updates the links in the store.
+// updateDraftProfile: Updates the profile details in the store.
+
 export const useDraftStore = create((set) => ({
     draftfirstName: "",
     draftlastName: "",

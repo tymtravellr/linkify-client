@@ -3,7 +3,7 @@ import PreviewUserView from "@/components/preview/userView";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const Preview = () => {
+const PreviewPage = () => {
 
   // Routing for the preview page
   const [searchParams] = useSearchParams();
@@ -20,7 +20,7 @@ const Preview = () => {
 
   return (
     <div className="w-full flex justify-center pt-20">
-      <div className="flex flex-col gap-8 bg-white rounded-3xl py-8 px-4 mx-auto max-w-[260px] w-full min-h-[500px] overflow-hidden">
+      <div className="flex flex-col gap-8 bg-white rounded-3xl max-w-[300px] w-full mx-auto overflow-hidden">
         {
           preview === 'self'
             ? <PreviewSelfView />
@@ -31,4 +31,4 @@ const Preview = () => {
   )
 }
 
-export default Preview
+export default PreviewPage

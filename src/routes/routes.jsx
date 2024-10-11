@@ -1,8 +1,8 @@
 import Layout from "@/layout/layout";
-import Editor from "@/pages/editor/editor";
-import Login from "@/pages/login/login";
-import Preview from "@/pages/preview/preview";
-import Register from "@/pages/register/register";
+import EditorPage from "@/pages/editor/editor";
+import LoginPage from "@/pages/login/login";
+import PreviewPage from "@/pages/preview/preview";
+import RegisterPage from "@/pages/register/register";
 import PrivateRoute from "@/privateRoute";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -13,22 +13,22 @@ export const Routes = createBrowserRouter([
         children: [
             {
                 path: '/login',
-                element: <Login />
+                element: <LoginPage />
             },
             {
                 path: '/register',
-                element: <Register />
+                element: <RegisterPage />
             },
             {
                 path: '/preview',
-                element: <Preview />
+                element: <PreviewPage />
             },
             {
                 element: <PrivateRoute />,
                 children: [
                     {
                         index: true,
-                        element: <Editor />
+                        element: <EditorPage />
                     }
                 ]
             }

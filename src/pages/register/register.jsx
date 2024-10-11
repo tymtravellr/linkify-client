@@ -5,7 +5,7 @@ import { useAuthStore } from "@/store/authStore";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
+const RegisterPage = () => {
     const { register, isLoading } = useAuthStore(state => state);
     const navigate = useNavigate();
     const [error, setError] = useState(false);
@@ -62,4 +62,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default RegisterPage
