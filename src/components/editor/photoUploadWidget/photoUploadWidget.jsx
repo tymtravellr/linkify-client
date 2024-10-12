@@ -1,10 +1,14 @@
 import { useDraftStore } from "@/store/draftStore";
+import { useUserStore } from "@/store/userStore";
 import { Images } from "lucide-react";
 
 const PhotoUploadWidget = () => {
     const { draftImage, updateDraftProfile } = useDraftStore(state => state);
-    const handleUpdateDraftProfile = (data) => {
-        updateDraftProfile(data);
+    const { setImageFile } = useUserStore(state => state);
+
+    const handleUpdateDraftProfile = (event) => {
+        updateDraftProfile({ draftImage: URL.createObjectURL(event.target.files[0]) });
+        setImageFile(event.target.files[0]);
     }
     return (
         <div className="relative w-32 h-32 rounded-lg cursor-pointer overflow-hidden group" >
@@ -13,7 +17,8 @@ const PhotoUploadWidget = () => {
                 name="profile-picture"
                 id="profile-picture"
                 className="absolute inset-0 opacity-0 cursor-pointer"
-                onChange={(e) => handleUpdateDraftProfile({ draftImage: URL.createObjectURL(e.target.files[0]) })}
+                accept="image/*"
+                onChange={(e) => handleUpdateDraftProfile(e)}
             />
             <img
                 src={draftImage || 'https://i.pinimg.com/originals/19/34/6c/19346ce85a15a5dd20136b6a063a9112.png'} alt="Profile"

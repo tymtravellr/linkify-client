@@ -62,7 +62,8 @@ const EditorPage = () => {
         firstName: draftfirstName,
         lastName: draftlastName,
         email: draftEmail,
-        image: draftImage
+        image: draftImage,
+        imageFile: useUserStore.getState().imageFile
       })
     }
   }, [view, validateLink, draftfirstName, draftlastName, draftEmail, draftImage, saveLinks, saveProfile]);

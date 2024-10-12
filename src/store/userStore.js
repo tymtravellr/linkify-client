@@ -12,9 +12,11 @@ export const useUserStore = create((set) => ({
     lastName: "",
     email: "",
     image: "",
+    imageFile: null,
     links: [],
     isLoading: false,
     isSavingFinished: false,
+    setImageFile: (file) => set({ imageFile: file }),
     updateLinks: (links) => set({ links }),
     updateProfile: (data) => set(() => ({
         firstName: data.firstName,
@@ -51,6 +53,23 @@ export const useUserStore = create((set) => ({
             image: data.image
         });
         set({ isLoading: true });
+
+        //upload image to imgbb first
+        const formData = new FormData();
+        formData.append('image', data.imageFile);
+        const imgbbResponse = await fetch('https://api.imgbb.com/1/upload?key=a19837b58d86f13722152d37d8df49ad', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!imgbbResponse.ok) {
+            console.error('Image upload failed');
+            set({ isLoading: false });
+            return;
+        } else {
+            const imgbbData = await imgbbResponse.json();
+            data.image = imgbbData.data.url;
+        }
 
         try {
             const email = getCookie('email');
