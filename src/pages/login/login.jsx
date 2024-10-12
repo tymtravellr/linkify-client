@@ -29,18 +29,21 @@ const LoginPage = () => {
     }, [error])
 
     return (
-        <section className="relative h-full flex justify-center items-center">
-            <div className="max-w-[460px] w-full px-10 pt-6 pb-12 bg-white rounded-md space-y-6">
-                <h1 className="font-bold text-3xl text-center">Login</h1>
+        <section className="relative h-full flex justify-center items-center flex-1">
+            <div className="max-w-[460px] w-full px-10 pt-12 pb-12 bg-white rounded-md space-y-10 shadow-lg">
+                <div className="text-center space-y-2">
+                    <h1 className="font-bold text-3xl">Login to Linkify</h1>
+                    <p>Manage your lnks, layout, social, and more.</p>
+                </div>
                 <div className="w-full space-y-4">
                     <form onSubmit={handleLogin} className="w-full flex flex-col gap-4">
                         <div className="space-y-1">
                             <label htmlFor="email" className="text-sm text-gray-400">Email</label>
-                            <Input type="email" id="email" name="email" required />
+                            <Input type="email" id="email" name="email" placeholder="Enter your email" required />
                         </div>
                         <div className="space-y-1">
                             <label htmlFor="password" className="text-sm text-gray-400">Password</label>
-                            <Input type="password" id="password" name="password" required />
+                            <Input type="password" id="password" name="password" placeholder="Enter your password" required />
                         </div>
                         <button
                             className={`${variantStyle()}`}

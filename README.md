@@ -38,3 +38,34 @@ To run the application, use the following command:
 ```bash
 npm run dev
 ```
+
+You can create a new account or login with the following credentials:
+
+- Email: `admin@mail.com`
+- Password: `admin`
+
+## Features
+
+- Create an account
+- Login
+- Logout
+- Token-based authentication
+- Add social media links
+- Edit social media links
+- Delete social media links
+- Reorder social media links
+- Share social media links
+- Edit account details
+- Persist user data
+- Toast notifications
+- Responsive design
+
+## Technologies
+
+- React
+- Vite
+- Tailwind CSS
+- Node.js
+- Express
+- MongoDB
+- JWT
