@@ -108,8 +108,9 @@ const EditorPage = () => {
         </div>
       </section>
       {
-        isSavingFinished && <Notification
+        <Notification
           message="Your changes have been saved successfully!"
+          show={isSavingFinished}
         />
       }
     </main>

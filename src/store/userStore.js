@@ -54,21 +54,23 @@ export const useUserStore = create((set) => ({
         });
         set({ isLoading: true });
 
-        //upload image to imgbb first
-        const formData = new FormData();
-        formData.append('image', data.imageFile);
-        const imgbbResponse = await fetch('https://api.imgbb.com/1/upload?key=a19837b58d86f13722152d37d8df49ad', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (!imgbbResponse.ok) {
-            console.error('Image upload failed');
-            set({ isLoading: false });
-            return;
-        } else {
-            const imgbbData = await imgbbResponse.json();
-            data.image = imgbbData.data.url;
+        //upload image to imgbb first, but only if there is a new image
+        if (data.imageFile) {
+            const formData = new FormData();
+            formData.append('image', data.imageFile);
+            try {
+                const response = await fetch('https://api.imgbb.com/1/upload?key=a19837b58d86f13722152d37d8df49ad', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) throw new Error('Image upload failed');
+                const result = await response.json();
+                data.image = result.data.url;
+            } catch (error) {
+                console.error('Image upload error:', error);
+                set({ isLoading: false });
+                return;
+            }
         }
 
         try {

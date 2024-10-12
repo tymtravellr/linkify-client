@@ -54,9 +54,12 @@ const LoginPage = () => {
                         Don&apos;t have an account? <Link to="/register" className="text-blue-500">Register</Link>
                     </p>
                 </div>
-                {
-                    error && <Notification message="Something went wrong" />
-                }
+                <Notification
+                    message="Unable to login. Please check your credentials."
+                    show={error}
+                    state="error"
+                />
+
             </div>
         </section>
     )
